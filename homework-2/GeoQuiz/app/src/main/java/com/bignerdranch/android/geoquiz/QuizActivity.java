@@ -21,7 +21,7 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz);
+        setContentView(R.layout.activity_test);
         mQuestionTextView = findViewById(R.id.question_text_view);
         mResultTextView = findViewById(R.id.result_text_view);
 
