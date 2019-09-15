@@ -26,4 +26,8 @@ public class MainActivity extends AppCompatActivity {
             userMsgTV.setText(userInputET.getText().toString());
         }
     }
+
+    public void clearTextMessage (View view) {
+        userInputET.setText("");
+    }
 }

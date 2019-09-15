@@ -39,18 +39,39 @@
             android:hint="@string/write_msg_hint"
             android:inputType="text" />
 
-        <Button
-            android:id="@+id/showBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="#E91E63"
-            android:fontFamily="sans-serif-black"
-            android:onClick="showTextMessage"
-            android:text="show text"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="355dp"
+            android:layout_height="105dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/showBtn"
+                android:layout_width="173dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#E91E63"
+                android:fontFamily="sans-serif-black"
+                android:onClick="showTextMessage"
+                android:text="show text"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/clearBtn"
+                android:layout_width="173dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:background="#1EA2E9"
+                android:fontFamily="sans-serif-black"
+                android:onClick="clearTextMessage"
+                android:text="Clean"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
