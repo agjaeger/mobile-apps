@@ -1,0 +1,7 @@
+
+<!-- Spanish Specific Style -->
+<resources>
+    <style name="AppTheme.ImageView">
+        <item name="android:src">@drawable/ic_spain</item>
+    </style>
+</resources>
