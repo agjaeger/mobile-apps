@@ -1,0 +1,63 @@
+<resources>
+    <!-- Base application theme. -->
+
+    <!-- Global Theme -->
+    <style name="Theme.Shrine" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:fontFamily">@font/dosis</item>
+    </style>
+
+
+    <!-- Specific Widgets -->
+    <style name="Shrine.TextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:fontFamily">@font/convergence</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Shrine.TextButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:fontFamily">@font/convergence</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Shrine.ButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/convergence</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Shrine.ProductTitleStyle" parent="">
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Shrine.ProductPriceStyle" parent="">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Shrine.Icon" parent="">
+        <item name="android:tint">@color/toolbarIconColor</item>
+    </style>
+
+    <style name="Shrine.Toolbar" parent="">
+        <item name="android:fontFamily">@font/convergence</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Shrine.Title" parent="">
+        <item name="android:fontFamily">@font/convergence</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+</resources>

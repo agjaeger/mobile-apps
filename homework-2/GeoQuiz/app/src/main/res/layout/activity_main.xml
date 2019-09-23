@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<Constrain
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 >
-
-    <data>
-        <variable name="current_question" type="com.bignerdranch.android.geoquiz.model.Question"/>
-    </data>
 
     <TextView
         android:id="@+id/result_text_view"
@@ -72,4 +68,4 @@
 
     </LinearLayout>
 
-</layout>
+</Constrain>
