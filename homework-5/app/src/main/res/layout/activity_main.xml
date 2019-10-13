@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme"
+    tools:context=".MainActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/secondaryLighterColor">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/id_pizza_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_big"
+                android:layout_marginBottom="@dimen/space_min"
+                android:minWidth="@android:dimen/app_icon_size"
+                android:minHeight="@android:dimen/app_icon_size"
+                android:rotation="180"
+                android:scaleX="-1"
+                android:src="@drawable/ic_not_selected_pizza" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/space_min"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/id_button_round"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/primaryTextColor"
+                    android:text="ROUND"
+                    android:textColor="@color/secondaryColor"
+                    app:cornerRadius="0dp"
+                    app:strokeWidth="1dp" />
+
+                <Button
+                    android:id="@+id/id_button_square"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/primaryTextColor"
+                    android:text="SQUARE"
+                    android:textColor="@color/secondaryColor"
+                    app:cornerRadius="0dp"
+                    app:strokeWidth="1dp" />
+
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/space_mid"
+                android:visibility="visible">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/id_chipgroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_mid"
+                    app:singleLine="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/PLACEHOLDER"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/secondaryLighterColor"
+                        android:textColor="@color/primaryTextColor" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/space_mid"
+                android:layout_marginRight="@dimen/space_mid"
+                app:cardBackgroundColor="@android:color/background_light"
+                app:cardCornerRadius="@dimen/space_min">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/allura"
+                        android:paddingLeft="@dimen/space_mid"
+                        android:paddingTop="@dimen/space_min"
+                        android:paddingBottom="@dimen/space_min"
+                        android:text="Ingredients:"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:typeface="normal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/space_mid"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/space_big"
+                        android:paddingRight="@dimen/space_big">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingRight="@android:dimen/app_icon_size">
+
+                            <CheckBox
+                                android:id="@+id/id_pepperoni_checkbox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ingredient_pepperoni" />
+
+                            <CheckBox
+                                android:id="@+id/id_mushroom_checkbox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ingredient_mushroom" />
+
+                            <CheckBox
+                                android:id="@+id/id_vegetable_checkbox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ingredient_vegetables" />
+
+                            <CheckBox
+                                android:id="@+id/id_anchovies_checkbox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ingredient_anchovies" />
+                        </LinearLayout>
+
+                        <Space
+                            android:layout_width="125dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:minWidth="20dp" />
+
+                        <RadioGroup
+                            android:id="@+id/id_cheese_radio_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <RadioButton
+                                android:id="@+id/id_no_cheese_radio_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ingredient_no_cheese" />
+
+                            <RadioButton
+                                android:id="@+id/id_cheese_radio_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ingredient_cheese" />
+
+                            <RadioButton
+                                android:id="@+id/id_double_cheese_radio_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ingredient_double_cheese" />
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/space_mid"
+                android:layout_marginTop="@dimen/space_mid"
+                android:layout_marginRight="@dimen/space_mid"
+                app:cardBackgroundColor="@android:color/background_light"
+                app:cardCornerRadius="@dimen/space_min">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/id_user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_mid"
+                        android:layout_marginTop="@dimen/space_mid"
+                        android:layout_marginRight="@dimen/space_mid"
+                        android:drawableLeft="@android:drawable/ic_menu_myplaces"
+                        android:ems="10"
+                        android:hint="Name"
+                        android:inputType="textPersonName" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/space_min" />
+
+                    <EditText
+                        android:id="@+id/id_user_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_mid"
+                        android:layout_marginRight="@dimen/space_mid"
+                        android:layout_marginBottom="@dimen/space_mid"
+                        android:drawableLeft="@android:drawable/ic_menu_call"
+                        android:ems="10"
+                        android:hint="Phone"
+                        android:inputType="phone" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/id_place_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_mid"
+                android:layout_marginTop="@dimen/space_mid"
+                android:layout_marginRight="@dimen/space_mid"
+                android:layout_marginBottom="@dimen/space_mid"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:text="PLACE ORDER" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

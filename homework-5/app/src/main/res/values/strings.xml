@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">homework5</string>
+    <string name="ingredient_pepperoni">Pepperoni</string>
+    <string name="ingredient_mushroom">Mushrooms</string>
+    <string name="ingredient_vegetables">Veggies</string>
+    <string name="ingredient_anchovies">Anchovies</string>
+
+    <string name="ingredient_no_cheese">No Cheese</string>
+    <string name="ingredient_cheese">Cheese</string>
+    <string name="ingredient_double_cheese">2x Cheese</string>
+</resources>
