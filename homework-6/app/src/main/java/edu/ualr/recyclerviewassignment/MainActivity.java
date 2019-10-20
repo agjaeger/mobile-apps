@@ -6,7 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import edu.ualr.recyclerviewassignment.data.DataGenerator;
-import edu.ualr.recyclerviewassignment.model.Device;
+import edu.ualr.recyclerviewassignment.model.Item;
+import edu.ualr.recyclerviewassignment.model.Section;
 import edu.ualr.recyclerviewassignment.adapter.AdapterList;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView () {
         // TODO. Create and initialize the RecyclerView instance here
-        List<Device> items = DataGenerator.getDevicesDataset(6);
+        List<Item> items = DataGenerator.getDevicesDataset(6);
 
         // TODO 07: Instantiate the adapter and pass its data source.
         // TODO 10: Create the new AdapterListBasic class

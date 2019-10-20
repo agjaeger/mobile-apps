@@ -11,97 +11,204 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.ualr.recyclerviewassignment.R;
+import edu.ualr.recyclerviewassignment.model.Item;
 import edu.ualr.recyclerviewassignment.model.Device;
+import edu.ualr.recyclerviewassignment.model.Section;
 
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.ArrayList;
 
 public class AdapterList extends RecyclerView.Adapter {
 
-    private List<Device> m_items;
+    private static final int DEVICE_VIEW = 0;
+    private static final int SECTION_VIEW = 1;
+
+    private List<Item> m_items;
     private Context m_context;
 
-    public AdapterList (Context p_context, List<Device> p_items) {
-        m_items = p_items;
+    public AdapterList (Context p_context, List<Item> p_items) {
         m_context = p_context;
+        m_items = buildItems(p_items);
+    }
+
+    public List<Item> buildItems (List<Item> p_items) {
+        // Sort the list
+        Collections.sort(p_items, new Comparator<Item>() {
+            // order: Connected, Ready, Linked
+            public int compare(Item itemA, Item itemB) {
+                Device deviceA = (Device) itemA;
+                Device deviceB = (Device) itemB;
+
+                return Integer.valueOf(deviceA.getDeviceStatus().ordinal())
+                        .compareTo(
+                                Integer.valueOf(deviceB.getDeviceStatus().ordinal())
+                        );
+            }
+        });
+
+        List<Item> connectedItems = filterListOnStatus(p_items, Device.DeviceStatus.Connected);
+        List<Item> readyItems = filterListOnStatus(p_items, Device.DeviceStatus.Ready);
+        List<Item> linkedItems = filterListOnStatus(p_items, Device.DeviceStatus.Linked);
+
+
+        // Build organized list by extending the filered
+
+        List<Item> organized = new ArrayList<>();
+
+        organized.add(new Section("Connected"));
+        organized.addAll(connectedItems);
+
+        organized.add(new Section("Ready"));
+        organized.addAll(readyItems);
+
+        organized.add(new Section("Linked"));
+        organized.addAll(linkedItems);
+
+        return organized;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder (@NonNull ViewGroup p_parent, int p_viewType) {
-        View itemView = LayoutInflater.from(p_parent.getContext()).inflate(
-                R.layout.item_device,
-                p_parent,
-                false
-        );
 
-        return new DeviceViewHolder(itemView);
+        RecyclerView.ViewHolder vh = null;
+        View itemView = null;
+
+        switch (p_viewType) {
+            case SECTION_VIEW:
+                itemView = LayoutInflater.from(p_parent.getContext()).inflate(
+                        R.layout.item_section,
+                        p_parent,
+                        false
+                );
+
+                vh =  new SectionHeaderViewHolder(itemView);
+                break;
+
+            case DEVICE_VIEW:
+                itemView = LayoutInflater.from(p_parent.getContext()).inflate(
+                        R.layout.item_device,
+                        p_parent,
+                        false
+                );
+
+                vh =  new DeviceViewHolder(itemView);
+                break;
+        };
+
+        return vh;
     }
 
 
     @Override
     public void onBindViewHolder (@NonNull RecyclerView.ViewHolder holder, int position) {
-        DeviceViewHolder vh = (DeviceViewHolder) holder;
-        Device d = m_items.get(position);
+        Item item = m_items.get(position);
 
-        // assign vh params
-        vh.deviceName.setText(d.getName());
+        if (item.isSection()) {
+            SectionHeaderViewHolder viewHolder = (SectionHeaderViewHolder) holder;
+            Section section = (Section) item;
+            viewHolder.label.setText(section.getLabel());
+        } else {
+            DeviceViewHolder vh = (DeviceViewHolder) holder;
+            Device device = (Device) item;
 
-        // set image on device type
-        switch (d.getDeviceType()) {
-            case Unknown:
-                vh.icon.setImageResource(R.drawable.ic_unknown_device);
-                break;
+            // set device name
+            vh.deviceName.setText(device.getName());
 
-            case Desktop:
-                vh.icon.setImageResource(R.drawable.ic_pc);
-                break;
+            // set image on device type
+            switch (device.getDeviceType()) {
+                case Unknown:
+                    vh.icon.setImageResource(R.drawable.ic_unknown_device);
+                    break;
 
-            case Laptop:
-                vh.icon.setImageResource(R.drawable.ic_laptop);
-                break;
+                case Desktop:
+                    vh.icon.setImageResource(R.drawable.ic_pc);
+                    break;
 
-            case Tablet:
-                vh.icon.setImageResource(R.drawable.ic_tablet_android);
-                break;
+                case Laptop:
+                    vh.icon.setImageResource(R.drawable.ic_laptop);
+                    break;
 
-            case Smartphone:
-                vh.icon.setImageResource(R.drawable.ic_phone_android);
-                break;
+                case Tablet:
+                    vh.icon.setImageResource(R.drawable.ic_tablet_android);
+                    break;
 
-            case SmartTV:
-                vh.icon.setImageResource(R.drawable.ic_tv);
-                break;
+                case Smartphone:
+                    vh.icon.setImageResource(R.drawable.ic_phone_android);
+                    break;
 
-            case GameConsole:
-                vh.icon.setImageResource(R.drawable.ic_gameconsole);
-                break;
-        };
+                case SmartTV:
+                    vh.icon.setImageResource(R.drawable.ic_tv);
+                    break;
 
-        switch (d.getDeviceStatus()) {
-            case Ready:
-                vh.status.setImageResource(R.drawable.status_mark_ready);
+                case GameConsole:
+                    vh.icon.setImageResource(R.drawable.ic_gameconsole);
+                    break;
+            }
 
-                if (d.getLastConnection() == null) {
-                    vh.connection.setText(R.string.never_connected);
-                } else {
-                    vh.connection.setText(R.string.recently);
-                }
-                break;
+            // set status image and connection text
+            switch (device.getDeviceStatus()) {
+                case Ready:
+                    vh.status.setImageResource(R.drawable.status_mark_ready);
 
-            case Linked:
-                vh.connection.setText(R.string.linked);
-                break;
+                    if (device.getLastConnection() == null) {
+                        vh.connection.setText(R.string.never_connected);
+                    } else {
+                        vh.connection.setText(R.string.recently);
+                    }
+                    break;
 
-            case Connected:
-                vh.status.setImageResource(R.drawable.status_mark_connected);
-                vh.connection.setText(R.string.currently_connected);
-                break;
+                case Linked:
+                    vh.connection.setText(R.string.linked);
+                    break;
+
+                case Connected:
+                    vh.status.setImageResource(R.drawable.status_mark_connected);
+                    vh.connection.setText(R.string.currently_connected);
+                    break;
+            }
         }
     }
 
     @Override
     public int getItemCount () {
         return m_items.size();
+    }
+
+    @Override
+    public int getItemViewType (int position) {
+        if (this.m_items.get(position).isSection()) {
+            return SECTION_VIEW;
+        }
+
+        return DEVICE_VIEW;
+    }
+
+    private List<Item>  filterListOnStatus (List<Item> items, Device.DeviceStatus targetStatus) {
+        List<Item> filteredItems = new ArrayList<>();
+
+        for (Item item : items) {
+            Device d = (Device) item;
+            if (d.getDeviceStatus() == targetStatus) {
+                filteredItems.add(d);
+            }
+        }
+
+        return filteredItems;
+    }
+
+    private List<Item>  filterDevicesFromList (List<Item> items) {
+        List<Item> filteredItems = new ArrayList<>();
+
+        for (Item item : items) {
+            if (item instanceof Device) {
+                filteredItems.add(item);
+            }
+        }
+
+        return filteredItems;
     }
 
     public class DeviceViewHolder extends RecyclerView.ViewHolder {
@@ -117,6 +224,16 @@ public class AdapterList extends RecyclerView.Adapter {
             status = p_view.findViewById(R.id.id_deviceStatus);
             deviceName = p_view.findViewById(R.id.id_deviceName);
             connection = p_view.findViewById(R.id.id_connectionTimestamp);
+        }
+    }
+
+    public class SectionHeaderViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView label;
+
+        public SectionHeaderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.label = itemView.findViewById(R.id.title_section);
         }
     }
 }

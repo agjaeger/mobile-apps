@@ -4,10 +4,8 @@ import androidx.annotation.NonNull;
 
 import java.util.Date;
 
-/**
- * Created by irconde on 2019-10-04.
- */
-public class Device {
+
+public class Device extends Item {
     private String name;
     private DeviceType deviceType;
     private Date lastConnection;
@@ -18,6 +16,8 @@ public class Device {
         this.name = "";
         this.deviceStatus = DeviceStatus.Linked;
         this.deviceType = DeviceType.Unknown;
+
+        this.section = false;
     }
 
     public Device (final Device device) {
