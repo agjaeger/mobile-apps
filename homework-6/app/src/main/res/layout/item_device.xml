@@ -19,7 +19,7 @@
         android:layout_gravity="center">
 
         <ImageView
-            android:id="@+id/background"
+            android:id="@+id/id_background_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,10 +32,10 @@
             android:layout_width="31dp"
             android:layout_height="30dp"
             android:tint="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/background"
+            app:layout_constraintBottom_toBottomOf="@+id/id_background_img"
+            app:layout_constraintEnd_toEndOf="@+id/id_background_img"
+            app:layout_constraintStart_toStartOf="@+id/id_background_img"
+            app:layout_constraintTop_toTopOf="@+id/id_background_img"
             app:srcCompat="@drawable/ic_phone_android"
         />
 
@@ -43,8 +43,8 @@
             android:id="@+id/id_deviceStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/background"
+            app:layout_constraintBottom_toBottomOf="@+id/id_background_img"
+            app:layout_constraintEnd_toEndOf="@+id/id_background_img"
             app:srcCompat="@drawable/status_mark_ready" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -112,7 +112,7 @@
                 android:layout_weight="1" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/id_connectBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

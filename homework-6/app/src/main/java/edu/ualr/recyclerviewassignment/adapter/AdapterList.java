@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,12 +26,28 @@ public class AdapterList extends RecyclerView.Adapter {
     private static final int DEVICE_VIEW = 0;
     private static final int SECTION_VIEW = 1;
 
+    private OnItemClickListener m_OnItemClickListener;
+    public interface OnItemClickListener {
+        void onItemClick(View view, Device obj, int position);
+    }
+
+    public void setOnItemClickListener(final OnItemClickListener p_ItemClickListener) {
+        this.m_OnItemClickListener = p_ItemClickListener;
+    }
+
     private List<Item> m_items;
     private Context m_context;
 
     public AdapterList (Context p_context, List<Item> p_items) {
         m_context = p_context;
         m_items = buildItems(p_items);
+
+
+    }
+
+    public void rebuildList () {
+        List<Item> deviceItems  = filterDevicesFromList(m_items);
+        m_items = buildItems(deviceItems);
     }
 
     public List<Item> buildItems (List<Item> p_items) {
@@ -57,14 +74,20 @@ public class AdapterList extends RecyclerView.Adapter {
 
         List<Item> organized = new ArrayList<>();
 
-        organized.add(new Section("Connected"));
-        organized.addAll(connectedItems);
+        if (connectedItems.size() > 0) {
+            organized.add(new Section("Connected"));
+            organized.addAll(connectedItems);
+        }
 
-        organized.add(new Section("Ready"));
-        organized.addAll(readyItems);
+        if (readyItems.size() > 0) {
+            organized.add(new Section("Ready"));
+            organized.addAll(readyItems);
+        }
 
-        organized.add(new Section("Linked"));
-        organized.addAll(linkedItems);
+        if (linkedItems.size() > 0) {
+            organized.add(new Section("Linked"));
+            organized.addAll(linkedItems);
+        }
 
         return organized;
     }
@@ -150,7 +173,18 @@ public class AdapterList extends RecyclerView.Adapter {
 
             // set status image and connection text
             switch (device.getDeviceStatus()) {
+                case Connected:
+                    vh.status.setVisibility(View.VISIBLE);
+                    vh.connectBtn.setVisibility(View.VISIBLE);
+
+                    vh.status.setImageResource(R.drawable.status_mark_connected);
+                    vh.connection.setText(R.string.currently_connected);
+                    break;
+
                 case Ready:
+                    vh.status.setVisibility(View.VISIBLE);
+                    vh.connectBtn.setVisibility(View.VISIBLE);
+
                     vh.status.setImageResource(R.drawable.status_mark_ready);
 
                     if (device.getLastConnection() == null) {
@@ -158,15 +192,14 @@ public class AdapterList extends RecyclerView.Adapter {
                     } else {
                         vh.connection.setText(R.string.recently);
                     }
+
                     break;
 
                 case Linked:
+                    vh.connectBtn.setVisibility(View.GONE);
+                    vh.status.setVisibility(View.GONE);
                     vh.connection.setText(R.string.linked);
-                    break;
-
-                case Connected:
-                    vh.status.setImageResource(R.drawable.status_mark_connected);
-                    vh.connection.setText(R.string.currently_connected);
+                    //vh.iconBg.setImageResource(R.drawable.thumbnail_background_wire);
                     break;
             }
         }
@@ -212,23 +245,38 @@ public class AdapterList extends RecyclerView.Adapter {
     }
 
     public class DeviceViewHolder extends RecyclerView.ViewHolder {
+        public ImageView iconBg;
         public ImageView icon;
         public ImageView status;
         public TextView deviceName;
         public TextView connection;
+        public ImageButton connectBtn;
+        public View lyt_parent;
 
         public DeviceViewHolder (View p_view) {
             super(p_view);
 
+            iconBg = p_view.findViewById(R.id.id_background_img);
             icon = p_view.findViewById(R.id.id_deviceIcon);
             status = p_view.findViewById(R.id.id_deviceStatus);
             deviceName = p_view.findViewById(R.id.id_deviceName);
             connection = p_view.findViewById(R.id.id_connectionTimestamp);
+            connectBtn = p_view.findViewById(R.id.id_connectBtn);
+
+            lyt_parent = p_view.findViewById(R.id.lyt_deviceParent);
+            connectBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Device d = (Device) m_items.get(getLayoutPosition());
+                    m_OnItemClickListener.onItemClick(view, d, getLayoutPosition());
+                }
+            });
         }
+
+
     }
 
     public class SectionHeaderViewHolder extends RecyclerView.ViewHolder {
-
         public TextView label;
 
         public SectionHeaderViewHolder(@NonNull View itemView) {
