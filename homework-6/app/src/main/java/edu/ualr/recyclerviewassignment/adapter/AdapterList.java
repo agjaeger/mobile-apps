@@ -264,6 +264,7 @@ public class AdapterList extends RecyclerView.Adapter {
             connectBtn = p_view.findViewById(R.id.id_connectBtn);
 
             lyt_parent = p_view.findViewById(R.id.lyt_deviceParent);
+
             connectBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -271,9 +272,14 @@ public class AdapterList extends RecyclerView.Adapter {
                     m_OnItemClickListener.onItemClick(view, d, getLayoutPosition());
                 }
             });
+
+            lyt_parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("TEST");
+                }
+            });
         }
-
-
     }
 
     public class SectionHeaderViewHolder extends RecyclerView.ViewHolder {
